@@ -8,8 +8,6 @@ on:
       - '**.md'
       - '**.txt'
   workflow_dispatch:
-  schedule:
-    - cron: "*/10 * * * *"
     inputs:
       use_session_cache:
         description: "Use session cache"
@@ -19,7 +17,8 @@ on:
         description: "start or stop"
         required: false
         default: "true"
-
+  schedule:
+    - cron: "*/10 * * * *"
 jobs:
   run-selenium:
     runs-on: ubuntu-latest
