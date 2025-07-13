@@ -95,14 +95,14 @@ jobs:
             seedloaf-session-cache-
 
       - name: Run Selenium Start Script
-        if: ${{ github.event_name == 'schedule' || inputs.start_or_stop == 'true' }}
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.start_or_stop == 'true') }}
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: python .github/workflows/websitebotex.py
 
       - name: Run Selenium Stop Script
-        if: ${{ github.event_name == 'schedule' || inputs.start_or_stop == 'false' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.start_or_stop == 'false' }}
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
