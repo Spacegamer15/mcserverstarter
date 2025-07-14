@@ -1,0 +1,13 @@
+name: Ping GitHub to Keep Schedule Alive
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep GitHub repo alive
+        run: echo "Pinging GitHub at $(date)"
