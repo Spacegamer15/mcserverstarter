@@ -1,4 +1,4 @@
-name: Ping GitHub to Keep Schedule Alive
+name: Ping and Trigger Selenium Workflow
 
 on:
   schedule:
@@ -6,8 +6,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  ping:
+  ping-and-trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Keep GitHub repo alive
+      - name: Keep GitHub repo alive (ping)
         run: echo "Pinging GitHub at $(date)"
+
+      - name: Trigger Run Selenium Script workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: 'selenium.yml'    # <-- Cambia aquí si tu workflow principal se llama diferente
+          ref: 'main'                # Rama donde está tu workflow
+          inputs: |
+            use_session_cache: "false"
+            start_or_stop: "true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
